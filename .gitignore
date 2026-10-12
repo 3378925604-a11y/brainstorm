@@ -1,0 +1,35 @@
+# 凭据：任何真实 token / cookie / key 都不许进 git
+config.local.json
+*.local.json
+*.key
+*.pem
+secrets.*
+.env
+.env.*
+
+# 本机运行配置（含真实命令名/模型名等环境信息，开源仓库只进 config.example.json）
+config.json
+
+# 运行时状态（游标、旗标、日志）
+state/
+bridge-callback.dump
+state-*.json
+wake_*.txt
+*.log
+logs/
+
+# 房间消息文件（明文共享，含对话内容）
+*.jsonl
+
+# Python
+__pycache__/
+*.py[cod]
+.venv/
+venv/
+
+# Node
+node_modules/
+
+# 系统
+Thumbs.db
+.DS_Store

@@ -1,0 +1,47 @@
+{
+  "room": {
+    "file": "room.jsonl",
+    "webui": {
+      "enabled": false,
+      "host": "127.0.0.1",
+      "port": 4720
+    }
+  },
+  "agents": [
+    {
+      "name": "agent-a",
+      "nickname": "示例A",
+      "channel": "dingtalk",
+      "wakeup": {
+        "kind": "cli",
+        "command": "<your-agent-cli>",
+        "args": ["run", "-m", "{model}", "{prompt}"],
+        "timeout_sec": 180
+      },
+      "reply_to": ["human", "@agent-a"],
+      "model": ""
+    }
+  ],
+  "sources": [
+    {
+      "type": "dingtalk-official",
+      "enabled": false,
+      "block_injection": true,
+      "host": "127.0.0.1",
+      "port": 8080,
+      "note": "凭据在 config.local.json，本文件不许出现任何 token；回调必须验签；block_injection=true 时高危注入消息直接拦截"
+    },
+    {
+      "type": "dws-adapter",
+      "enabled": false,
+      "note": "可选适配器示例，仓库不含实现，需自备私有工具"
+    }
+  ],
+  "presence": {
+    "idle_offline_sec": 60
+  },
+  "log": {
+    "level": "info",
+    "redact": ["token", "cookie", "apikey", "api_key", "appkey", "app_key", "appsecret", "secret", "authorization", "credential", "access_token", "refresh_token", "signature"]
+  }
+}

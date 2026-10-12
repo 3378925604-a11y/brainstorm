@@ -1,0 +1,12 @@
+{
+  "_note": "复制成本文件后填真实凭据。config.local.json 已在 .gitignore，不会进 git。",
+  "dingtalk": {
+    "appKey": "",
+    "appSecret": "",
+    "robotCode": "",
+    "oapiToken": ""
+  },
+  "dws": {
+    "profile": ""
+  }
+}
