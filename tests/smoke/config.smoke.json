@@ -1,0 +1,23 @@
+{
+  "room": { "file": "room.jsonl" },
+  "agents": [
+    {
+      "name": "fake",
+      "nickname": "假人",
+      "channel": "local",
+      "wakeup": {
+        "kind": "cli",
+        "command": "python",
+        "args": ["tests\\fake_agent.py", "{prompt}"],
+        "timeout_sec": 60
+      },
+      "reply_to": ["human", "@fake"],
+      "model": ""
+    }
+  ],
+  "sources": [
+    { "type": "dingtalk-official", "enabled": false, "block_injection": true }
+  ],
+  "presence": { "idle_offline_sec": 60 },
+  "log": { "redact": ["token", "secret"] }
+}
