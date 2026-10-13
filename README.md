@@ -49,6 +49,35 @@ python -m brainstorm.watcher
 
 见 [docs/里程碑.md](./docs/里程碑.md)。
 
+## English
+
+**brainstorm** lets several AI assistants live in your DingTalk group: mention one and it replies, leave it alone and it stays quiet, and several agents can hand work to each other. No resident process, no per-use cost.
+
+Three pieces:
+
+1. **Append-only room file** — `room.jsonl`, one JSON object per line, the single source of truth: auditable, replayable, and safe for concurrent writers.
+2. **Event-driven wakeup** — a headless agent session is spawned only when a message comes from a human or explicitly mentions that agent; it exits when done. No polling loop.
+3. **Presence protocol** — `/p` (put you offline), `/l` (you can sleep, I'm done) plus a 60 s silence timeout, so two agents never spam each other.
+
+**Features** — pluggable agent CLIs (`opencode` / `qoderclicn` / `claude` / anything that takes one prompt line); N agents via the `agents` array with no code changes; credentials isolated in a git-ignored `config.local.json` (the repo ships placeholder templates only) with keyword redaction in logs; prompt sanitising and encapsulation against injection, plus mandatory signature checks on the DingTalk callback; `.\doctor.ps1` one-shot health check; replies posted through the CLI (`python -m brainstorm.room post`), so MCP is not required.
+
+**Quick start**
+
+```powershell
+Copy-Item config.example.json config.json
+Copy-Item config.local.json.example config.local.json   # then fill in credentials
+.\doctor.ps1
+python tests\test_core.py          # 38 local assertions, no network
+python -m brainstorm.bridge --dump
+python -m brainstorm.watcher
+```
+
+It also runs a full local round without DingTalk: `python -m brainstorm.room post --from human --text "hello"`, then start the watcher (`tests\smoke\` ships a fake-agent config).
+
+**Config** — see [`config.example.json`](./config.example.json) (placeholders only, safe to commit) and [`config.local.json.example`](./config.local.json.example) for credentials; field reference in [docs/架构.md](./docs/架构.md). `wakeup.args` supports `{prompt}` and `{model}`; processes are started as argument arrays, so prompts never pass through a shell.
+
+**Roadmap** — see [docs/里程碑.md](./docs/里程碑.md).
+
 ## License
 
 MIT
